@@ -122,9 +122,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                             packet.lap, packet.driver, packet.position, packet.event_type
                                         );
 
-                                        // Store lap event in redb
-                                        let db_clone = db.clone();
-                                        let p_clone = packet.clone();
+  // Store lap event in redb
+     let db_clone = db.clone();
+     let p_clone = packet.clone();
                                         tokio::task::spawn_blocking(move || -> Result<(), redb::Error> {
                                             let write_txn = db_clone.begin_write()?;
                                             {
