@@ -133,7 +133,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
  let val = serde_json::to_string(&p_clone).unwrap();
                                                 table.insert(key.as_str(), val.as_str())?;
                                             }
-                                            write_txn.commit()?;
+                                             write_txn.commit()?;
        Ok(())
         }).await??;
          }
@@ -144,12 +144,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                             }
                         }
                     }
-                    Message::Close(_) => {
-                        println!("WebSocket connection closed by server.");
-                        break;
-                    }
-                    _ => {}
-                }
+    Message::Close(_) => {
+      println!("WebSocket connection closed by server.");
+          break;
+           }
+         _ => {}
+        }
             }
         }
         Commands::Profiles => {
@@ -165,7 +165,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
      if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
      println!(
        "{:<14} | {:<24} | {:<12} | {:<14} | {}ms",
-          packet.driver, packet.input_device, packet.brand, packet.connection_type, packet.latency_ms
+ packet.driver, packet.input_device, packet.brand, packet.connection_type, packet.latency_ms
                     );
                     count += 1;
                 }
