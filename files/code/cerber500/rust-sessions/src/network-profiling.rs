@@ -107,11 +107,11 @@ match serde_json::from_str::<TelemetryPacket>(&text) {
       let p_clone = packet.clone();
                                         tokio::task::spawn_blocking(move || -> Result<(), redb::Error> {
       let write_txn = db_clone.begin_write()?;
-                                            {
+    {
  let mut table = write_txn.open_table(DEVICE_TABLE)?;
  let val = serde_json::to_string(&p_clone).unwrap();
                                                 table.insert(p_clone.driver.as_str(), val.as_str())?;
-                                            }
+     }
                                             write_txn.commit()?;
         Ok(())
               }).await??;
@@ -120,14 +120,14 @@ match serde_json::from_str::<TelemetryPacket>(&text) {
      println!(
     "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
                                             packet.lap, packet.driver, packet.position, packet.event_type
-                                        );
+     );
 
   // Store lap event in redb
      let db_clone = db.clone();
      let p_clone = packet.clone();
                                         tokio::task::spawn_blocking(move || -> Result<(), redb::Error> {
    let write_txn = db_clone.begin_write()?;
-                                            {
+  {
    let mut table = write_txn.open_table(LAP_TABLE)?;
    let key = format!("{:013}_{}", p_clone.timestamp, p_clone.driver);
  let val = serde_json::to_string(&p_clone).unwrap();
