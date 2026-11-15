@@ -109,7 +109,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
       let write_txn = db_clone.begin_write()?;
                                             {
  let mut table = write_txn.open_table(DEVICE_TABLE)?;
-           let val = serde_json::to_string(&p_clone).unwrap();
+ let val = serde_json::to_string(&p_clone).unwrap();
                                                 table.insert(p_clone.driver.as_str(), val.as_str())?;
                                             }
                                             write_txn.commit()?;
