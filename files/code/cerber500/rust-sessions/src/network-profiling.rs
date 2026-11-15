@@ -170,19 +170,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     count += 1;
                 }
             }
-            println!("{}", "-".repeat(78));
-            println!("Total tracked player hardware profiles in redb: {}", count);
+    println!("{}", "-".repeat(78));
+    println!("Total tracked player hardware profiles in redb: {}", count);
         }
-        Commands::History => {
-            let read_txn = db.begin_read()?;
-            let table = read_txn.open_table(LAP_TABLE)?;
+    Commands::History => {
+      let read_txn = db.begin_read()?;
+      let table = read_txn.open_table(LAP_TABLE)?;
 
-            println!("{:<22} | {:<8} | {:<12} | {:<8} | {:<15}", "TIMESTAMP", "LAP", "DRIVER", "POS", "EVENT");
-            println!("{}", "-".repeat(75));
+      println!("{:<22} | {:<8} | {:<12} | {:<8} | {:<15}", "TIMESTAMP", "LAP", "DRIVER", "POS", "EVENT");
+      println!("{}", "-".repeat(75));
 
-            for entry in table.iter()? {
-                let (_, val) = entry?;
-                if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
+      for entry in table.iter()? {
+          let (_, val) = entry?;
+             if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
    let dt = DateTime::<Utc>::from_timestamp((packet.timestamp / 1000) as i64, 0)
   .map(|t| t.format("%Y-%m-%d %H:%M:%S").to_string())
   .unwrap_or_else(|| "Unknown".to_string());
@@ -206,7 +206,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             }
 
-            if format.to_lowercase() == "json" {
+   if format.to_lowercase() == "json" {
       let filename = format!("{}.json", output);
       let file = std::fs::File::create(&filename)?;
                 serde_json::to_writer_pretty(file, &packets)?;
@@ -225,7 +225,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "message": message,
             });
             write.send(Message::Text(payload.to_string())).await?;
-            println!("Broadcast sent: '{}'", message);
+   println!("Broadcast sent: '{}'", message);
         }
     }
 
