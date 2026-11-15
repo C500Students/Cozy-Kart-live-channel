@@ -126,7 +126,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
      let db_clone = db.clone();
      let p_clone = packet.clone();
                                         tokio::task::spawn_blocking(move || -> Result<(), redb::Error> {
-       let write_txn = db_clone.begin_write()?;
+   let write_txn = db_clone.begin_write()?;
                                             {
    let mut table = write_txn.open_table(LAP_TABLE)?;
    let key = format!("{:013}_{}", p_clone.timestamp, p_clone.driver);
@@ -134,13 +134,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                                 table.insert(key.as_str(), val.as_str())?;
                                             }
                                             write_txn.commit()?;
-                                            Ok(())
-                                        }).await??;
-                                    }
-                                }
-                            }
-                            Err(_) => {
-                                println!("[RAW STREAM] {}", text);
+       Ok(())
+        }).await??;
+         }
+          }
+        }
+      Err(_) => {
+      println!("[RAW STREAM] {}", text);
                             }
                         }
                     }
@@ -161,11 +161,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             let mut count = 0;
             for entry in table.iter()? {
-                let (_, val) = entry?;
-                if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
-                    println!(
-                        "{:<14} | {:<24} | {:<12} | {:<14} | {}ms",
-                        packet.driver, packet.input_device, packet.brand, packet.connection_type, packet.latency_ms
+   let (_, val) = entry?;
+     if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
+     println!(
+       "{:<14} | {:<24} | {:<12} | {:<14} | {}ms",
+          packet.driver, packet.input_device, packet.brand, packet.connection_type, packet.latency_ms
                     );
                     count += 1;
                 }
