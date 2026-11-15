@@ -130,7 +130,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                             {
    let mut table = write_txn.open_table(LAP_TABLE)?;
    let key = format!("{:013}_{}", p_clone.timestamp, p_clone.driver);
-                                                let val = serde_json::to_string(&p_clone).unwrap();
+ let val = serde_json::to_string(&p_clone).unwrap();
                                                 table.insert(key.as_str(), val.as_str())?;
                                             }
                                             write_txn.commit()?;
