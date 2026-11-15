@@ -183,13 +183,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             for entry in table.iter()? {
                 let (_, val) = entry?;
                 if let Ok(packet) = serde_json::from_str::<TelemetryPacket>(val.value()) {
-                    let dt = DateTime::<Utc>::from_timestamp((packet.timestamp / 1000) as i64, 0)
-                        .map(|t| t.format("%Y-%m-%d %H:%M:%S").to_string())
-                        .unwrap_or_else(|| "Unknown".to_string());
+   let dt = DateTime::<Utc>::from_timestamp((packet.timestamp / 1000) as i64, 0)
+  .map(|t| t.format("%Y-%m-%d %H:%M:%S").to_string())
+  .unwrap_or_else(|| "Unknown".to_string());
 
-                    println!(
-                        "{:<22} | {:<8} | {:<12} | #{:<7} | {:<15}",
-                        dt, packet.lap, packet.driver, packet.position, packet.event_type
+   println!(
+      "{:<22} | {:<8} | {:<12} | #{:<7} | {:<15}",
+        dt, packet.lap, packet.driver, packet.position, packet.event_type
                     );
                 }
             }
@@ -207,10 +207,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             if format.to_lowercase() == "json" {
-                let filename = format!("{}.json", output);
-                let file = std::fs::File::create(&filename)?;
+      let filename = format!("{}.json", output);
+      let file = std::fs::File::create(&filename)?;
                 serde_json::to_writer_pretty(file, &packets)?;
-                println!("Exported {} packets to '{}'", packets.len(), filename);
+     println!("Exported {} packets to '{}'", packets.len(), filename);
             } else {
                 eprintln!("Supported export format: json");
             }
