@@ -96,8 +96,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         match serde_json::from_str::<TelemetryPacket>(&text) {
                             Ok(packet) => {
                                 match packet.event_type.as_str() {
-                                    "HANDSHAKE" => {
-                                        println!(
+      "HANDSHAKE" => {
+           println!(
                                             "[HARDWARE] Driver: {:<12} | Device: {} ({}) | Net: {} | Ping: {}ms",
                                             packet.driver, packet.input_device, packet.brand, packet.connection_type, packet.latency_ms
                                         );
@@ -113,12 +113,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                                                 table.insert(p_clone.driver.as_str(), val.as_str())?;
                                             }
                                             write_txn.commit()?;
-                                            Ok(())
-                                        }).await??;
-                                    }
-                                    _ => {
-                                        println!(
-                                            "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
+        Ok(())
+              }).await??;
+              }
+          _ => {
+     println!(
+    "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
                                             packet.lap, packet.driver, packet.position, packet.event_type
                                         );
 
