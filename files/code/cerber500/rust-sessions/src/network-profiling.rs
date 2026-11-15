@@ -90,12 +90,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             println!("Listening and recording telemetry to redb ('{}')... Press Ctrl+C to exit.", args.db);
 
-            while let Some(msg) = read.next().await {
-                match msg? {
-                    Message::Text(text) => {
-                        match serde_json::from_str::<TelemetryPacket>(&text) {
-                            Ok(packet) => {
-                                match packet.event_type.as_str() {
+     while let Some(msg) = read.next().await {
+      match msg? {
+      Message::Text(text) => {
+match serde_json::from_str::<TelemetryPacket>(&text) {
+  Ok(packet) => {
+  match packet.event_type.as_str() {
       "HANDSHAKE" => {
            println!(
                                             "[HARDWARE] Driver: {:<12} | Device: {} ({}) | Net: {} | Ping: {}ms",
