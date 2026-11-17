@@ -60,16 +60,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     packet.event_type
                                 );
                             }
-                            Err(_) => {
-                                // Fallback for raw text ticks / broadcast messages
-                                println!("[RAW STREAM] {}", text);
+  Err(_) => {
+      // Fallback for raw text ticks / broadcast messages
+      println!("[RAW STREAM] {}", text);
                             }
                         }
                     }
-                    Message::Close(_) => {
-                        println!("WebSocket connection closed by server.");
-                        break;
-                    }
+     Message::Close(_) => {
+       println!("WebSocket connection closed by server.");
+         break;
+      }
                     _ => {}
                 }
             }
