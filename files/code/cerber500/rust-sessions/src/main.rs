@@ -48,12 +48,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Monitor => {
             println!("Listening for live race telemetry... Press Ctrl+C to exit.");
             while let Some(msg) = read.next().await {
-                match msg? {
-                    Message::Text(text) => {
-                        match serde_json::from_str::<TelemetryPacket>(&text) {
-                            Ok(packet) => {
-                                println!(
-                                    "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
+    match msg? {
+      Message::Text(text) => {
+          match serde_json::from_str::<TelemetryPacket>(&text) {
+          Ok(packet) => {
+    println!(
+     "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
     packet.lap, 
     packet.driver, 
     packet.position, 
