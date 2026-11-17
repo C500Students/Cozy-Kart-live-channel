@@ -45,9 +45,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let (mut write, mut read) = ws_stream.split();
 
     match args.command {
-        Commands::Monitor => {
-            println!("Listening for live race telemetry... Press Ctrl+C to exit.");
-            while let Some(msg) = read.next().await {
+      Commands::Monitor => {
+        println!("Listening for live race telemetry... Press Ctrl+C to exit.");
+        while let Some(msg) = read.next().await {
     match msg? {
       Message::Text(text) => {
           match serde_json::from_str::<TelemetryPacket>(&text) {
@@ -80,7 +80,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "message": message,
             });
             write.send(Message::Text(payload.to_string())).await?;
-            println!("Successfully broadcast message to stream overlay: '{}'", message);
+  println!("Successfully broadcast message to stream overlay: '{}'", message);
         }
     }
 
