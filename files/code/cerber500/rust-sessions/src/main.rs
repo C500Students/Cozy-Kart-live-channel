@@ -54,7 +54,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                             Ok(packet) => {
                                 println!(
                                     "[LAP {}] Driver: {:<12} | Position: #{} | Event: {}",
-                                    packet.lap, packet.driver, packet.position, packet.event_type
+    packet.lap, 
+    packet.driver, 
+    packet.position, 
+    packet.event_type
                                 );
                             }
                             Err(_) => {
